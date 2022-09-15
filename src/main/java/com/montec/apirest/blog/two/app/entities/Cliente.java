@@ -21,6 +21,8 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 
 //Aun no estas listo para hacer esta madre solo estudiale mas se cancela y se queda StandBy
 //Segundo try
@@ -43,6 +45,7 @@ public class Cliente implements Serializable {
 	@NotNull
 	private String email;
 	@OneToMany(mappedBy = "cliente",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@JsonBackReference
 	private List<Factura> facturas;
 	
 	@Temporal(TemporalType.DATE)
@@ -106,6 +109,10 @@ public class Cliente implements Serializable {
 	@PrePersist
 	public void prePersist() {
 		createAt = new Date();
+	}
+	
+	public void addFactura(Factura factura) {
+		facturas.add(factura);
 	}
 	
 }

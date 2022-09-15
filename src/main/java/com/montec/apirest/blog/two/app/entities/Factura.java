@@ -2,8 +2,10 @@ package com.montec.apirest.blog.two.app.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,7 +14,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -26,6 +31,10 @@ public class Factura implements Serializable {
 	@NotNull
 	private String descripcion;
 	private String observacion;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name="create_at")
+	private Date createAt;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="cliente_id")
@@ -69,5 +78,28 @@ public class Factura implements Serializable {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
+
+	public Date getCreateAt() {
+		return createAt;
+	}
+
+	public void setCreateAt(Date createAt) {
+		this.createAt = createAt;
+	}
+
+	public List<LineaFactura> getLineasfactura() {
+		return lineasfactura;
+	}
+
+	public void setLineasfactura(List<LineaFactura> lineasfactura) {
+		this.lineasfactura = lineasfactura;
+	}
+	
+	@PrePersist
+	public void prePersist() {
+		createAt = new Date();
+	}
+	
+	
 
 }
