@@ -20,6 +20,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "facturas")
 public class Factura implements Serializable {
@@ -38,9 +41,11 @@ public class Factura implements Serializable {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="cliente_id")
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
 	private Cliente cliente;
 	
 	@OneToMany(mappedBy = "factura", fetch = FetchType.LAZY)
+	@JsonBackReference
 	private List<LineaFactura> lineasfactura;
 	
 	public Factura() {

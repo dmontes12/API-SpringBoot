@@ -21,12 +21,15 @@ public class FacturaServiceImpl implements IFacturaService{
 	private ModelMapper modelMapper;
 
 	@Override
-	public FacturaDTO encontrarFacturaPorId(Long id) {
+	public Factura encontrarFacturaPorId(Long idCliente,Long idFactura) {
 		
-		Factura factura = facturaDao.findById(id).orElse(null);
-		FacturaDTO facturaDTO = convertToDto(factura);
+		Factura factura = facturaDao.findById(idFactura).orElse(null);
 		
-		return facturaDTO;
+		if(idCliente == factura.getCliente().getId()) {
+			return factura;
+		}
+		
+		return null;
 	}
 
 	@Override
