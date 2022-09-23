@@ -5,8 +5,6 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.montec.apirest.blog.two.app.dao.IClienteDao;
 import com.montec.apirest.blog.two.app.dao.IFacturaDao;
 import com.montec.apirest.blog.two.app.dao.ILineaFacturaDao;
 import com.montec.apirest.blog.two.app.dao.IProductoDao;
@@ -27,9 +25,6 @@ public class LineaFacturaImpl implements ILineaFacturaService{
 	
 	@Autowired
 	private IProductoDao productoDao;
-	
-	@Autowired
-	private IClienteDao clienteDao;
 	
 	@Autowired
 	private ModelMapper modelMapper;
